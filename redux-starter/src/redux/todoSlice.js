@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 // createSlice is a higher order function that accepts an initial state,
 // an object full of reducer functions and a slice name. It automatically generates action creators
@@ -7,6 +7,34 @@ import { createSlice } from "@reduxjs/toolkit";
 // In Redux - Toolkit, the createSlice method helps us create a slice of the redux - store.
 // This function aims to reduce the boilerplate required to add data to redux in the canonical way.
 // Internally, it uses createAction and createReducer.
+
+export const getTodosAsync = createAsyncThunk(
+    'todos/getTodosAsync',
+    async () => {
+        const response = await fetch('http://localhost:7000/todos');
+        if (response.ok) {
+            const todos = await response.json();
+            return { todos };
+        }
+    }
+);
+
+export const addTodoAsync = createAsyncThunk(
+    'todos/addTodoAsync',
+    async (payload) => {
+        const response = await fetch('http://localhost:7000/todos', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ title: payload.title }),
+        });
+        if (response.ok) {
+            const todo = response.json();
+            return { todo };
+        }
+    }
+);
 
 const todoSlice = createSlice({
     name: 'todos',
@@ -33,10 +61,18 @@ const todoSlice = createSlice({
         deleteTodo: (state, action) => {
             return state.filter((todo) => todo.id !== action.payload.id);
         }
+    },
+    extraReducers: {
+        [getTodosAsync.fulfilled]: (state, action) => {
+            return action.payload.todos;
+        },
+        [addTodoAsync.fulfilled]: (state, action) => {
+            state.push(action.payload.todo);
+        }
     }
 });
 
-export const { 
+export const {
     addTodo,
     toggleComplete,
     deleteTodo,
