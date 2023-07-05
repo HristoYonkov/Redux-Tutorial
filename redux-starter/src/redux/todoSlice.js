@@ -30,7 +30,7 @@ export const addTodoAsync = createAsyncThunk(
             body: JSON.stringify({ title: payload.title }),
         });
         if (response.ok) {
-            const todo = response.json();
+            const todo = await response.json();
             return { todo };
         }
     }
