@@ -15,6 +15,7 @@ const AddTodoForm = () => {
 				title: value
 			})
 		);
+		setValue('');
 	};
 
 	return (
