@@ -52,6 +52,21 @@ export const toggleCompleteAsync = createAsyncThunk(
         }
     });
 
+export const deleteTodoAsync = createAsyncThunk(
+    'todos/deleteTodoAsync',
+    async (payload) => {
+        const response = await fetch(`http://localhost:7000/todos/${payload.id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+       
+        if (response.ok) {
+            return payload.id;
+        }
+    });
+
 const todoSlice = createSlice({
     name: 'todos',
     initialState: [
@@ -78,23 +93,26 @@ const todoSlice = createSlice({
             return state.filter((todo) => todo.id !== action.payload.id);
         }
     },
-    extraReducers: {
-        [getTodosAsync.pending]: (state, action) => {
+    extraReducers: builder => {
+        builder.addCase(getTodosAsync.pending, (state, action) => {
             console.log('Fetching data...');
-        },
-        [getTodosAsync.fulfilled]: (state, action) => {
+        });
+        builder.addCase(getTodosAsync.fulfilled, (state, action) => {
             console.log('Fetched data successfully!');
             return action.payload.todos;
-        },
-        [addTodoAsync.fulfilled]: (state, action) => {
+        });
+        builder.addCase(addTodoAsync.fulfilled, (state, action) => {
             state.push(action.payload.todo);
-        },
-        [toggleCompleteAsync.fulfilled]: (state, action) => {
+        });
+        builder.addCase(toggleCompleteAsync.fulfilled, (state, action) => {
             const index = state.findIndex(
                 (todo) => todo.id === action.payload.id
             );
             state[index].completed = action.payload.completed;
-        }
+        });
+        builder.addCase(deleteTodoAsync.fulfilled, (state, action) => {
+            return state.filter((todo) => todo.id !== action.meta.arg.id);
+        });
     }
 });
 
