@@ -3,6 +3,8 @@ import TodoItem from './TodoItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTodosAsync } from '../redux/todoSlice';
 
+import { motion } from 'framer-motion';
+
 const TodoList = () => {
 	const dispatch = useDispatch();
 
@@ -21,14 +23,19 @@ const TodoList = () => {
 	// ];
 
 	return (
+
 		<ul className='list-group'>
 			{todos.map((todo) => (
-				<div>
-
+				<motion.div
+					initial={{ opacity: 0, scale: 0.5 }}
+					animate={{ opacity: 1, scale: 1 }}
+					transition={{ duration: 0.5 }}
+				>
 					<TodoItem key={todo.id} id={todo.id} title={todo.title} completed={todo.completed} />
-				</div>
+				</motion.div>
 			))}
 		</ul>
+
 	);
 };
 
