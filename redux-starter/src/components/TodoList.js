@@ -9,33 +9,33 @@ const TodoList = () => {
 	const dispatch = useDispatch();
 	const todos = useSelector((state) => state.todos);
 	const [index, setIndex] = useState(0);
+	const [check, setCheck] = useState(false);
 	const [newTodos, setNewTodos] = useState([]);
-
+	
 	useEffect(() => {
 		dispatch(getTodosAsync());
 	}, [dispatch]);
-
+	
 	// const todos = [
-	// 	{ id: 1, title: 'todo1', completed: false },
-	// 	{ id: 2, title: 'todo2', completed: false },
-	// 	{ id: 3, title: 'todo3', completed: true },
-	// 	{ id: 4, title: 'todo4', completed: false },
-	// 	{ id: 5, title: 'todo5', completed: false },
-	// ];
-
-	useEffect(() => {
+		// 	{ id: 1, title: 'todo1', completed: false },
+		// 	{ id: 2, title: 'todo2', completed: false },
+		// 	{ id: 3, title: 'todo3', completed: true },
+		// 	{ id: 4, title: 'todo4', completed: false },
+		// 	{ id: 5, title: 'todo5', completed: false },
+		// ];
+		
+		useEffect(() => {
+		console.log(todos);
 		setTimeout(() => {
 			if (index < todos.length && todos[0].id !== 1) {
-				console.log(todos);
 				setNewTodos(state => [...state, todos[index]]);
 				setIndex(state => state + 1);
 			}
-			if (index === 0) {
-				setIndex(state => state + 1);
-				setIndex(state => state - 1);
+			if (todos[0].id === 1) {
+				setCheck(true)
 			}
-		}, 100);
-	}, [index]);
+		}, 50);
+	}, [index, check]);
 
 	useEffect(() => {
 		if (index > 0) {
