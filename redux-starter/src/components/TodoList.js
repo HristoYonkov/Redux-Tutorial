@@ -1,16 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import TodoItem from './TodoItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTodosAsync } from '../redux/todoSlice';
 
 import { motion } from 'framer-motion';
 
-
-
 const TodoList = () => {
 	const dispatch = useDispatch();
-
 	const todos = useSelector((state) => state.todos);
+	const [index, setIndex] = useState(0);
+	const [newTodos, setNewTodos] = useState([]);
 
 	useEffect(() => {
 		dispatch(getTodosAsync());
@@ -24,19 +23,39 @@ const TodoList = () => {
 	// 	{ id: 5, title: 'todo5', completed: false },
 	// ];
 
+	useEffect(() => {
+		setTimeout(() => {
+			if (index < todos.length && todos[0].id !== 1) {
+				console.log(todos);
+				setNewTodos(state => [...state, todos[index]]);
+				setIndex(state => state + 1);
+			}
+			if (index === 0) {
+				setIndex(state => state + 1);
+				setIndex(state => state - 1);
+			}
+		}, 100);
+	}, [index]);
+
+	useEffect(() => {
+		if (index > 0) {
+			setNewTodos(state => [...todos]);
+		}
+	}, [todos]);
+
 	return (
 
 		<ul className='list-group'>
-			{todos.map((todo) => (
+			{newTodos.map((todo) => (
 				<motion.div
 					initial={{ opacity: 0, scale: 0.9, y: 100 }}
 					animate={{ opacity: 1, scale: 1, y: 0 }}
 					transition={{ duration: 0.5 }}
+					key={todo.id}
 				>
 					<TodoItem key={todo.id} id={todo.id} title={todo.title} completed={todo.completed} />
 				</motion.div>
-			))
-			}
+			))}
 		</ul >
 
 	);
