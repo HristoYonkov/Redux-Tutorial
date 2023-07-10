@@ -13,7 +13,11 @@ const TodoItem = ({ id, title, completed }) => {
 
 	const deleteClick = () => {
 		// use 'deleteTodoAsync' for local request
-		dispatch(deleteTodoAsync({ id: id }));
+		if (completed) {
+			dispatch(deleteTodoAsync({ id: id }));
+		} else {
+			alert('You must check the item as completed!')
+		}
 	}
 	
 	return (
