@@ -25,20 +25,24 @@ const TodoList = () => {
 	// ];
 
 	useEffect(() => {
-		console.log(todos);
+		console.log(todos, index);
 		setTimeout(() => {
 			if (index < todos.length && todos[0].id !== 1) {
 				setNewTodos(state => [...state, todos[index]]);
 				setIndex(state => state + 1);
 			}
-			if (todos[0].id === 1) {
+			if (todos[0]?.id === 1) {
 				setCheck(true);
 			}
 		}, 50);
 	}, [index, check]);
 
 	useEffect(() => {
+		if (index >= 0 && todos.length === 0) {
+			setNewTodos(state => [...todos]);
+		}
 		if (index > 0) {
+			console.log(index);
 			setNewTodos(state => [...todos]);
 		}
 	}, [todos]);
