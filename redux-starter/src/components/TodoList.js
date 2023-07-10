@@ -30,10 +30,11 @@ const TodoList = () => {
 				setNewTodos(state => [...state, todos[index]]);
 				setIndex(state => state + 1);
 			}
+
 			if (todos[0]?.id === 1) {
 				setCheck(true);
 			}
-		}, 50);
+		}, 300);
 	}, [index, check]);
 
 	useEffect(() => {
@@ -41,6 +42,7 @@ const TodoList = () => {
 			setNewTodos(state => [...todos]);
 			setIndex(state => state + 1);
 		}
+
 		if (index > 0) {
 			setNewTodos(state => [...todos]);
 		}
