@@ -8,10 +8,12 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 // This function aims to reduce the boilerplate required to add data to redux in the canonical way.
 // Internally, it uses createAction and createReducer.
 
+// https://redux-tutorial-api.onrender.com/todos -- Deployed version
+// http://localhost:7000/todos -- Localhost version
 export const getTodosAsync = createAsyncThunk(
     'todos/getTodosAsync',
     async () => {
-        const response = await fetch('http://localhost:7000/todos');
+        const response = await fetch('https://redux-tutorial-api.onrender.com/todos');
         if (response.ok) {
             const todos = await response.json();
             return { todos };
@@ -22,7 +24,7 @@ export const getTodosAsync = createAsyncThunk(
 export const addTodoAsync = createAsyncThunk(
     'todos/addTodoAsync',
     async (payload) => {
-        const response = await fetch('http://localhost:7000/todos', {
+        const response = await fetch('https://redux-tutorial-api.onrender.com/todos', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -39,7 +41,7 @@ export const addTodoAsync = createAsyncThunk(
 export const toggleCompleteAsync = createAsyncThunk(
     'todos/completeTodoAsync',
     async (payload) => {
-        const response = await fetch(`http://localhost:7000/todos/${payload.id}`, {
+        const response = await fetch(`https://redux-tutorial-api.onrender.com/todos/${payload.id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -55,7 +57,7 @@ export const toggleCompleteAsync = createAsyncThunk(
 export const deleteTodoAsync = createAsyncThunk(
     'todos/deleteTodoAsync',
     async (payload) => {
-        const response = await fetch(`http://localhost:7000/todos/${payload.id}`, {
+        const response = await fetch(`https://redux-tutorial-api.onrender.com/todos/${payload.id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
