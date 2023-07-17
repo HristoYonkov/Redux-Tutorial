@@ -10,6 +10,10 @@ const AddTodoForm = () => {
 
 	const onSubmit = (event) => {
 		event.preventDefault();
+		if (value === '') {
+			return alert('Add a task in the field!');
+		}
+
 		dispatch(
 			// use 'addTodo' for local request
 			addTodoAsync({
@@ -28,7 +32,7 @@ const AddTodoForm = () => {
 				placeholder='Add todo...'
 				value={value}
 				onChange={(event) => setValue(event.target.value)}
-			></input>
+			/>
 
 			<button type='submit' className='btn btn-primary mb-2'>
 				Submit
