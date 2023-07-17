@@ -15,7 +15,7 @@ const TodoList = () => {
 
 	useEffect(() => {
 		dispatch(getTodosAsync());
-		console.log('1', todos.length);
+		console.log('1', newTodos.length, todos.length);
 	}, [dispatch]);
 
 	// const todos = [
@@ -27,12 +27,13 @@ const TodoList = () => {
 	// ];
 
 	useEffect(() => {
-		console.log('2', todos.length);
+		console.log('2', newTodos.length, todos.length);
 
 		setTimeout(() => {
 			if (index < todos.length && todos.length !== 1 && todos[0].id !== 1) {
 				setNewTodos(state => [...state, todos[index]]);
 				setIndex(state => state + 1);
+				console.log(newTodos);
 			}
 
 			if (todos[0]?.id === 1) {
@@ -42,7 +43,7 @@ const TodoList = () => {
 	}, [index, check]);
 
 	useEffect(() => {
-		console.log('3', todos.length);
+		console.log('3', newTodos.length, todos.length);
 
 		if (todos.length === 1) {
 			setNewTodos(state => [...todos]);
@@ -52,6 +53,12 @@ const TodoList = () => {
 		if (index > 0) {
 			setNewTodos(state => [...todos]);
 		}
+	}, [todos]);
+
+	useEffect(() => {
+		console.log('4', newTodos.length, todos.length);
+
+		setNewTodos(state => [...state]);
 	}, [todos]);
 
 	return (
