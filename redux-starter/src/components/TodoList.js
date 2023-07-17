@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getTodosAsync } from '../redux/todoSlice';
 
 import { motion } from 'framer-motion';
+import Loader from './loader/Loader';
 
 const TodoList = () => {
 	const dispatch = useDispatch();
@@ -49,19 +50,21 @@ const TodoList = () => {
 	}, [todos]);
 
 	return (
-
-		<ul className='list-group'>
-			{newTodos.map((todo) => (
-				<motion.div
-					initial={{ opacity: 0, scale: 0.9, y: 100 }}
-					animate={{ opacity: 1, scale: 1, y: 0 }}
-					transition={{ duration: 0.5 }}
-					key={todo.id}
-				>
-					<TodoItem key={todo.id} id={todo.id} title={todo.title} completed={todo.completed} />
-				</motion.div>
-			))}
-		</ul >
+		<div>
+			<ul className='list-group'>
+				<Loader />
+				{/* {newTodos.map((todo) => (
+					<motion.div
+						initial={{ opacity: 0, scale: 0.9, y: 100 }}
+						animate={{ opacity: 1, scale: 1, y: 0 }}
+						transition={{ duration: 0.5 }}
+						key={todo.id}
+					>
+						<TodoItem key={todo.id} id={todo.id} title={todo.title} completed={todo.completed} />
+					</motion.div>
+				))} */}
+			</ul >
+		</div>
 
 	);
 };
