@@ -95,7 +95,7 @@ const todoSlice = createSlice({
             return state.filter((todo) => todo.id !== action.payload.id);
         }
     },
-    extraReducers: builder => {
+    extraReducers(builder) {
         builder.addCase(getTodosAsync.pending, (state, action) => {
             console.log('Fetching data...');
         });
