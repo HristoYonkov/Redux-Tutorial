@@ -52,9 +52,9 @@ const TodoList = () => {
 	return (
 		<div>
 			<ul className='list-group'>
-				{newTodos.length > 0
+				{newTodos?.length > 0
 					?
-					newTodos.map((todo) => (
+					newTodos?.map((todo) => (
 						<motion.div
 							initial={{ opacity: 0, scale: 0.9, y: 100 }}
 							animate={{ opacity: 1, scale: 1, y: 0 }}
