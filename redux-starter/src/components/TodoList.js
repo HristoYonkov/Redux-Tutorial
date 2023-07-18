@@ -29,7 +29,7 @@ const TodoList = () => {
 	// ];
 
 	useEffect(() => {
-console.log(check);
+		
 		setTimeout(() => {
 			if (index < todos.length && todos.length !== 1 && todos[0].id !== 1) {
 				setNewTodos(state => [...state, todos[index]]);
