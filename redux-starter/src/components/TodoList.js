@@ -15,7 +15,9 @@ const TodoList = () => {
 
 	useEffect(() => {
 		dispatch(getTodosAsync());
-		console.log('1', newTodos.length, todos.length);
+		if (getTodosAsync.fulfilled) {
+			console.log('ready');
+		}
 	}, [dispatch]);
 
 	// const todos = [
@@ -27,13 +29,11 @@ const TodoList = () => {
 	// ];
 
 	useEffect(() => {
-		console.log('2', newTodos.length, todos.length);
-
+console.log(check);
 		setTimeout(() => {
 			if (index < todos.length && todos.length !== 1 && todos[0].id !== 1) {
 				setNewTodos(state => [...state, todos[index]]);
 				setIndex(state => state + 1);
-				console.log(newTodos);
 			}
 
 			if (todos[0]?.id === 1) {
@@ -43,11 +43,14 @@ const TodoList = () => {
 	}, [index, check]);
 
 	useEffect(() => {
-		console.log('3', newTodos.length, todos.length);
 
 		if (todos.length === 1) {
 			setNewTodos(state => [...todos]);
 			setIndex(state => state + 1);
+		}
+		
+		if (check) {
+			setNewTodos(state => [...todos]);
 		}
 
 		if (index > 0) {
@@ -56,15 +59,13 @@ const TodoList = () => {
 	}, [todos]);
 
 	useEffect(() => {
-		console.log('4', newTodos.length, todos.length);
-
 		setNewTodos(state => [...state]);
 	}, [todos]);
 
 	return (
 		<div>
 			<ul className='list-group'>
-				{newTodos?.length > 0
+				{check
 					?
 					newTodos?.map((todo) => (
 						<motion.div
