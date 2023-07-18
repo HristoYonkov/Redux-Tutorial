@@ -65,7 +65,7 @@ console.log(check);
 	return (
 		<div>
 			<ul className='list-group'>
-				{check
+				{newTodos?.length > 0
 					?
 					newTodos?.map((todo) => (
 						<motion.div
