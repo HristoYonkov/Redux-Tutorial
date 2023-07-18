@@ -98,6 +98,7 @@ const todoSlice = createSlice({
     extraReducers(builder) {
         builder.addCase(getTodosAsync.pending, (state, action) => {
             console.log('Fetching data...');
+            // return loader boolean
         });
         builder.addCase(getTodosAsync.fulfilled, (state, action) => {
             console.log('Fetched data successfully!');
