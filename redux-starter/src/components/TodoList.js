@@ -16,11 +16,6 @@ const TodoList = () => {
 
 	useEffect(() => {
 		dispatch(getTodosAsync());
-
-		if (getTodosAsync.fulfilled) {
-			// setLoading(false);
-			console.log(false);
-		}
 	}, [dispatch]);
 
 	// const todos = [
