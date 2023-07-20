@@ -12,11 +12,14 @@ const TodoList = () => {
 	const [index, setIndex] = useState(0);
 	const [check, setCheck] = useState(false);
 	const [newTodos, setNewTodos] = useState([]);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		dispatch(getTodosAsync());
+
 		if (getTodosAsync.fulfilled) {
-			console.log('ready');
+			// setLoading(false);
+			console.log(false);
 		}
 	}, [dispatch]);
 
@@ -51,6 +54,7 @@ const TodoList = () => {
 		
 		if (check) {
 			setNewTodos(state => [...todos]);
+			setLoading(false);
 		}
 
 		if (index > 0) {
@@ -78,7 +82,7 @@ const TodoList = () => {
 						</motion.div>
 					))
 
-					: <Loader />
+					: (loading && <Loader />)
 				}
 			</ul >
 		</div>
